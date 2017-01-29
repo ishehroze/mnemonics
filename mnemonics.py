@@ -35,13 +35,15 @@ def add_entry(number, mnemonic, pos_sym, json_file_name):
         'oth': 'others'
     }
     
-    assert pos_sym in pos_mapping
+    if not (pos_sym in pos_mapping):
+        return json.dumps({"status": "error"})
+
     pos = pos_mapping[pos_sym]
 
     dct = parse_json(json_file_name)
     
     if not (number_str in dct):
-        dct[number_str] ={
+        dct[number_str] = {
             "noun/pronoun": [],
             "adjective/adverb": [],
             "verb": [],
@@ -49,14 +51,41 @@ def add_entry(number, mnemonic, pos_sym, json_file_name):
         }
         
     if mnemonic in dct[number_str][pos]:
-        print("Entry already exists.")
+        return json.dumps({"status": "duplicate"})
+
     else:
         dct[number_str][pos].append(mnemonic)
         dct[number_str][pos].sort()
 
         with open(json_file_name, 'w') as json_file:
             json_file.write(json.dumps(dct))
-                
+            return json.dumps({"status": "success"})
+
+
+def remove_entry(number, mnemonic, pos_sym, json_file_name):
+    number_str = str(number)
+    pos_mapping = {
+        'n': 'noun/pronoun', 
+        'ad': 'adjective/adverb', 
+        'v': 'verb', 
+        'oth': 'others'
+    }
+    
+    assert pos_sym in pos_mapping
+    pos = pos_mapping[pos_sym]
+
+    dct = parse_json(json_file_name)
+    
+    if not (number_str in dct):
+        return json.dumps({"status": "error"})
+
+    else:
+        dct[number_str][pos].remove(mnemonic)
+        dct[number_str][pos].sort()
+
+        with open(json_file_name, 'w') as json_file:
+            json_file.write(json.dumps(dct))
+            return json.dumps({"status": "success"})
 
 # Console stuffs
 def print_entry(number, json_file_name):

@@ -1,3 +1,45 @@
 .top10 {
     margin-top: 5%;
 }
+
+.words .word .delete-word {
+    display: none;
+}
+
+.words .word:hover .delete-word {
+    display: inline;
+}
+
+a.add-word {
+    display: block;
+    color: #337AB7;
+    font-weight: bold;    
+}
+
+a.add-word:hover {
+    color: white;
+    background-color: #D9534F;
+    border-color: #D43F3A;
+}
+
+a.add-word-done {
+    display: block;
+    color: #3C763D;
+    background-color: #DFF0D8;
+    font-weight: bold;
+}
+
+a.add-word-done:hover {
+    color: white;
+    background-color: #5CB85C;
+    border-color: #4CAE4C; 
+}
+
+.word-input {
+    border-radius: 0;
+    margin-top: 1px;
+}
+
+.updated.glow {
+    border-radius: 0 0 2px red;
+}

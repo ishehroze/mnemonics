@@ -21,10 +21,14 @@ def ajax(number):
     return json.dumps(num_dct)
 
 
-@app.route('/add/<number>/<mnemonic>/<pos_sym>')
-def add(number, mnemonic, pos_sym):
-    mn.add_entry(number, mnemonic, pos_sym, json_file)
-    return mn.read_json(json_file)
+@app.route('/add/<number>-<pos_sym>-<mnemonic>')
+def add(number, pos_sym, mnemonic):
+    return mn.add_entry(number, mnemonic, pos_sym, json_file_name)
+
+
+@app.route('/remove/<number>-<pos_sym>-<mnemonic>')
+def remove(number, pos_sym, mnemonic):
+    return mn.remove_entry(number, mnemonic, pos_sym, json_file_name)
 
 
 @app.route('/view/<number>')
