@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ number }}</h1>
+{% if dct %}
+{% for pos, mnemonic_list in dct.items() %}
+{% if mnemonic_list %}
+<h2>{{ pos }}</h2>
+<ul>    
+    {% for mnemonic in mnemonic_list %}
+    <li>{{ mnemonic }}</li>
+    {% endfor %}
+{% endif %}
+</ul>
+{% endfor %}
+{% else %}
+<p>No entry for {{ number }}</p>
+{% endif %}
+{% endblock %}
